@@ -25,5 +25,5 @@ jobs:
     - name: Start docker containers
       run: |
           echo "VERSION=$(versioninfo)" >> $GITHUB_ENV
-          docker-compose -f docker-compose.yml up --build --detach -e DIR="."
+          docker-compose -f docker-compose.yml up --build --detach -e DIR="." ROOT_PASSWORD="npm" NPM_PASSWORD="npm"
           sleep 10  # wait for database to be ready
