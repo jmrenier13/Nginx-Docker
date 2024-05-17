@@ -28,6 +28,9 @@ jobs:
         echo "ROOT_PASSWORD=npm" >> $GITHUB_ENV
         echo "NPM_PASSWORD=npm" >> $GITHUB_ENV
 
+    - name: Create networks
+      run: docker network create -d bridge proxy
+
     - name: Start docker containers
       run: docker compose up --wait --wait-timeout 120 --detach
 
