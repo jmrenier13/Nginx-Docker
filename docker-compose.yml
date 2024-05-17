@@ -1,0 +1,52 @@
+version: '3.8'
+
+networks:
+  proxy:
+    driver: bridge
+    external: true
+  backend:
+  
+services:
+  nginx:
+    container_name: nginx
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - '8080:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+    environment:
+      # Mysql/Maria connection parameters:
+      DB_MYSQL_HOST: db
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: npm
+      DB_MYSQL_PASSWORD: npm
+      DB_MYSQL_NAME: npm
+      # Uncomment this if IPv6 is not enabled on your host
+      DISABLE_IPV6: true
+    volumes:
+      - ${DIR}/data:/data
+      - ${DIR}/letsencrypt:/etc/letsencrypt
+      - ${DIR}/snippets:/snippets
+    healthcheck:
+      test: ["CMD", "/usr/bin/check-health"]
+      interval: 10s
+      timeout: 3s
+    depends_on:
+      - db
+    networks:
+      - proxy
+      - backend
+  db:
+    image: jc21/mariadb-aria:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: npm
+      MYSQL_DATABASE: npm
+      MYSQL_USER: npm
+      MYSQL_PASSWORD: npm
+      MARIADB_AUTO_UPGRADE: 1
+    volumes:
+      - ${DIR}/mysql:/var/lib/mysql
+    networks:
+      - backend
