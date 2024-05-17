@@ -22,8 +22,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Start docker containers
+    - name: Set env
       run: |
-          echo "VERSION=$(versioninfo)" >> $GITHUB_ENV
-          docker-compose -f docker-compose.yml up --build --detach -e DIR="." ROOT_PASSWORD="npm" NPM_PASSWORD="npm"
-          sleep 10  # wait for database to be ready
+        echo "DIR=." >> $GITHUB_ENV
+        echo "ROOT_PASSWORD=npm" >> $GITHUB_ENV
+        echo "NPM_PASSWORD=npm" >> $GITHUB_ENV
+
+    - name: Start docker containers
+      run: docker compose up --wait --wait-timeout 120 --detach
+
+    - name: Show containers
+      run: docker container ps
