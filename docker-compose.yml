@@ -46,7 +46,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
       MYSQL_DATABASE: npm
       MYSQL_USER: npm
-      MYSQL_PASSWORD: $(NPM_PASSWORD}
+      MYSQL_PASSWORD: ${NPM_PASSWORD}
       MARIADB_AUTO_UPGRADE: 1
     volumes:
       - ${DIR}/mysql:/var/lib/mysql
