@@ -1,0 +1,29 @@
+name: Deploy Container
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Start docker containers
+      run: |
+          echo "VERSION=$(versioninfo)" >> $GITHUB_ENV
+          docker-compose -f docker-compose.yml up --build --detach -e DIR="."
+          sleep 10  # wait for database to be ready
