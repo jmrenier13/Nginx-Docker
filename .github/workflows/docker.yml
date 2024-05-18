@@ -43,9 +43,5 @@ jobs:
 
     - name: Curl nginx
       run: |
-        curl 0.0.0.0:80 > curl_nginx_80_result
-        cat curl_nginx_80_result
-        curl 0.0.0.0:80 > curl_nginx_81_result
+        curl 0.0.0.0:81 > curl_nginx_81_result
         cat curl_nginx_81_result
-        curl 0.0.0.0:80 > curl_nginx_443_result
-        cat curl_nginx_443_result
