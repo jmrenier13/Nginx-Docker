@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -36,3 +37,15 @@ jobs:
 
     - name: Show containers
       run: docker container ps
+
+    - name: Networks
+      run: docker network ls
+
+    - name: Curl nginx
+      run: |
+        curl 0.0.0.0:80 > curl_nginx_80_result
+        cat curl_nginx_80_result
+        curl 0.0.0.0:80 > curl_nginx_81_result
+        cat curl_nginx_81_result
+        curl 0.0.0.0:80 > curl_nginx_443_result
+        cat curl_nginx_443_result
