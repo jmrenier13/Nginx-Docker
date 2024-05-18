@@ -39,7 +39,7 @@ jobs:
 
     - name: Start docker containers
       run: |
-        docker-compose run -f ./tests/homarr/Homarr-Docker/docker-compose.yml --detach -e DIR=".\tests\homarr"
+        docker compose --file ./tests/homarr/Homarr-Docker/docker-compose.yml --env-file ./tests/homarr/homarr.env up --detach
         docker compose up --wait --wait-timeout 120 --detach
 
     - name: Show containers
