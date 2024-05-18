@@ -45,6 +45,11 @@ jobs:
     - name: Show containers
       run: docker container ps
 
+    - name: DNS
+      run: |
+        echo "0.0.0.0  homarr.example.com" >> /etc/hosts
+        nslookup homarr.example.com
+
     - name: Is site up
       run: |
         curl -sf homarr.example.com > /dev/null
