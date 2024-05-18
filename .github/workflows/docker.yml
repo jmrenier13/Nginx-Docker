@@ -75,6 +75,9 @@ jobs:
         sleep 10
         docker exec nginx nginx -s reload
 
+    - name: Test localhost
+      run: curl -vf localhost
+
     - name: Is site up
       run: |
         ping homarr.example.com -c 5
