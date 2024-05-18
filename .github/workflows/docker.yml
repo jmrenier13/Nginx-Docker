@@ -27,8 +27,6 @@ jobs:
         cd ./tests/homarr
         git clone https://github.com/jmrenier13/Homarr-Docker
         cd ../../
-        export DIR=./tests/homarr
-        docker compose up --wait --wait-timeout 120 --detach -f ./tests/homarr/docker-compose.yml
 
     - name: Set env
       run: |
@@ -40,7 +38,9 @@ jobs:
       run: docker network create -d bridge proxy
 
     - name: Start docker containers
-      run: docker compose up --wait --wait-timeout 120 --detach
+      run: |
+        docker-compose up -f ./tests/homarr/Homarr-Docker/docker-compose.yml --detach -e DIR=".\tests\homarr"
+        docker compose up --wait --wait-timeout 120 --detach
 
     - name: Show containers
       run: docker container ps
