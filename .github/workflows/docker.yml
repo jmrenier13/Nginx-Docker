@@ -46,11 +46,10 @@ jobs:
       run: docker container ps
 
     - name: DNS
-      run: |
-        sudo su
-        echo "0.0.0.0  homarr.example.com" >> /etc/hosts
-        exit
-        nslookup homarr.example.com
+      run: sudo echo "0.0.0.0  homarr.example.com" | sudo tee -a /etc/hosts
+
+    - name: nslookup
+      run: nslookup homarr.example.com
 
     - name: Is site up
       run: |
