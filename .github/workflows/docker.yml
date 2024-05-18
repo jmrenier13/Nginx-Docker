@@ -39,17 +39,11 @@ jobs:
 
     - name: Start docker containers
       run: |
-        docker-compose up -f ./tests/homarr/Homarr-Docker/docker-compose.yml --detach -e DIR=".\tests\homarr"
+        docker-compose run -f ./tests/homarr/Homarr-Docker/docker-compose.yml --detach -e DIR=".\tests\homarr"
         docker compose up --wait --wait-timeout 120 --detach
 
     - name: Show containers
       run: docker container ps
-
-    - name: Install dnsmasq
-      run: |
-        sudo apt-get install dnsmasq
-        cp ./tests/homarr.example.com /etc/dnsmasq.d/homarr.example.com
-        nslookup homarr.example.com
 
     - name: Is site up
       run: |
