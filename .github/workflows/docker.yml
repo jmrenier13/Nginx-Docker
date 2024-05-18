@@ -51,5 +51,8 @@ jobs:
         cp ./tests/homarr.example.com /etc/dnsmasq.d/homarr.example.com
         nslookup homarr.example.com
 
-    - name: Ping homarr.example.com
-      run: ping homarr.example.com -c 5
+    - name: Is site up
+      run: |
+        curl -sf homarr.example.com > /dev/null
+        if [ ! $? = 6 ]; then echo "Site is up"; else echo "Site is down"; exit 1; fi
+
