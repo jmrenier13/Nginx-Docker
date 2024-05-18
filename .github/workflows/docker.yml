@@ -76,7 +76,7 @@ jobs:
         docker exec nginx nginx -s reload
 
     - name: Test localhost
-      run: curl -vf localhost
+      run: curl -vf 127.0.0.1
 
     - name: Is site up
       run: |
