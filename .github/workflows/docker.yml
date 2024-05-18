@@ -44,3 +44,6 @@ jobs:
 
     - name: Show containers
       run: docker container ps
+
+    - name: Ping homarr.example.com
+      run: ping homarr.example.com -c 5
