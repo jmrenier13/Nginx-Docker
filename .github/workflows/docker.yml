@@ -75,8 +75,8 @@ jobs:
         sleep 10
         docker exec nginx nginx -s reload
 
-    - name: Test localhost
-      run: curl -vf 127.0.0.1
+    - name: Test homar:7575
+      run: curl -vf homarr:7575
 
     - name: Is site up
       run: |
