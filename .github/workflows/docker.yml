@@ -45,5 +45,11 @@ jobs:
     - name: Show containers
       run: docker container ps
 
+    - name: Install dnsmasq
+      run: |
+        sudo apt-get install dnsmasq
+        cp ./tests/homarr.example.com /etc/dnsmasq.d/homarr.example.com
+        nslookup homarr.example.com
+
     - name: Ping homarr.example.com
       run: ping homarr.example.com -c 5
