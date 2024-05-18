@@ -45,6 +45,12 @@ jobs:
     - name: Show containers
       run: docker container ps
 
+    - name: Check if homarr is up
+      run: |
+        curl -f 127.0.0.1:7575
+        curl -sf 127.0.0.1:7575 > /dev/null
+        if [ ! $? = 6 ]; then echo "Site is up"; else echo "Site is down"; exit 1; fi
+
     - name: DNS
       run: sudo echo "127.0.0.1  homarr.example.com" | sudo tee -a /etc/hosts
 
@@ -52,6 +58,9 @@ jobs:
       run: |
         echo "$(</etc/hosts)"
         nslookup homarr.example.com
+
+    - name: Ping
+      run: ping homarr.example.com -c 5
 
     - name: Old proxy
       run: |
@@ -68,6 +77,7 @@ jobs:
 
     - name: Is site up
       run: |
+        curl -f homarr.example.com
         curl -sf homarr.example.com > /dev/null
         if [ ! $? = 6 ]; then echo "Site is up"; else echo "Site is down"; exit 1; fi
 
