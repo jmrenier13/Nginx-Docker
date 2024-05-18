@@ -22,9 +22,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Clone homarr-docker
+      run: |
+        cd ./tests/homarr
+        git clone https://github.com/jmrenier13/Homarr-Docker
+        export DIR=.
+        docker compose up --wait --wait-timeout 120 --detach
+        cd ../
+
     - name: Set env
       run: |
-        echo "DIR=." >> $GITHUB_ENV
+        echo "DIR=./tests/nginx" >> $GITHUB_ENV
         echo "ROOT_PASSWORD=npm" >> $GITHUB_ENV
         echo "NPM_PASSWORD=npm" >> $GITHUB_ENV
 
