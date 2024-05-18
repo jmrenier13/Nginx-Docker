@@ -26,9 +26,9 @@ jobs:
       run: |
         cd ./tests/homarr
         git clone https://github.com/jmrenier13/Homarr-Docker
-        export DIR=.
-        docker compose up --wait --wait-timeout 120 --detach
-        cd ../
+        cd ../../
+        export DIR=./tests/homarr
+        docker compose up --wait --wait-timeout 120 --detach -f ./tests/homarr/docker-compose.yml
 
     - name: Set env
       run: |
