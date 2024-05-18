@@ -47,7 +47,9 @@ jobs:
 
     - name: DNS
       run: |
-        sudo echo "0.0.0.0  homarr.example.com" >> /etc/hosts
+        sudo su
+        echo "0.0.0.0  homarr.example.com" >> /etc/hosts
+        exit
         nslookup homarr.example.com
 
     - name: Is site up
