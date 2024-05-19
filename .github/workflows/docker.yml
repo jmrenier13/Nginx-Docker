@@ -82,3 +82,24 @@ jobs:
 
       - name: Networks
         run: docker network ls
+
+      - name: Append hosts
+        run: |
+          sudo echo "127.0.0.1  homarr.example.local" | sudo tee -a /etc/hosts
+          echo "$(</etc/hosts)"
+
+      - name: Check IP
+        run: nslookup homarr.example.local
+
+      - name: Curl homarr directly
+        run: |
+          curl 0.0.0.0:7575 > curl_direct_result
+          cat curl_direct_result
+
+      - name: Curl homarr proxy
+        run: |
+          curl homarr.example.local > curl_proxy_result
+          cat curl_proxy_result
+
+      - name: Check if different
+        run: cmp curl_direct_result curl_proxy_result || exit 1
