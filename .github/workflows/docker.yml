@@ -47,6 +47,8 @@ jobs:
         cat curl_nginx_8080_result
         curl 0.0.0.0:81 > curl_nginx_81_result
         cat curl_nginx_81_result
+        curl 127.0.0.1:81 > curl_nginx_test_result
+        cat curl_nginx_test_result
 
   proxy:
     name: Proxy
