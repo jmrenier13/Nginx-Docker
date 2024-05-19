@@ -64,7 +64,7 @@ jobs:
 
       - name: Set env
         run: |
-          echo "DIR=./nginx" >> $GITHUB_ENV
+          echo "DIR=./tests/nginx" >> $GITHUB_ENV
           echo "ROOT_PASSWORD=npm" >> $GITHUB_ENV
           echo "NPM_PASSWORD=npm" >> $GITHUB_ENV
 
