@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v
+        uses: actions/checkout@v4
 
       - name: Clone Homar-Docker
         run: git clone https://github.com/jmrenier13/Homarr-Docker
