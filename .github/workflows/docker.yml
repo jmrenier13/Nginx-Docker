@@ -1,4 +1,4 @@
-name: Deploy Container
+name: CI
 
 on:
   push:
@@ -47,3 +47,38 @@ jobs:
         cat curl_nginx_8080_result
         curl 0.0.0.0:81 > curl_nginx_81_result
         cat curl_nginx_81_result
+
+  proxy:
+    name: Proxy
+    needs: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v
+
+      - name: Clone Homar-Docker
+        run: git clone https://github.com/jmrenier13/Homarr-Docker
+
+      - name: Set env
+        run: |
+          echo "DIR=./nginx" >> $GITHUB_ENV
+          echo "ROOT_PASSWORD=npm" >> $GITHUB_ENV
+          echo "NPM_PASSWORD=npm" >> $GITHUB_ENV
+
+      - name: Create networks
+        run: |
+          docker network create -d bridge proxy
+
+      - name: Start docker containers
+        run: |
+          docker compose -f ./Homarr-Docker/docker-compose.yml -e DIR="./homarr" up --wait --wait-timeout 120 --detach
+          docker compose up --wait --wait-timeout 120 --detach
+
+      - name: Show containers
+        run: docker container ps
+
+      - name: Networks
+        run: docker network ls
