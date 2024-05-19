@@ -45,8 +45,10 @@ jobs:
       run: |
         curl 0.0.0.0:8080 > curl_nginx_8080_result
         cat curl_nginx_8080_result
+        echo "This is the original"
         curl 0.0.0.0:81 > curl_nginx_81_result
         cat curl_nginx_81_result
+        echo "This is the test"
         curl 127.0.0.1:81 > curl_nginx_test_result
         cat curl_nginx_test_result
 
