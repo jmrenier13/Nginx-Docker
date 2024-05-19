@@ -85,23 +85,23 @@ jobs:
 
       - name: Append hosts
         run: |
-          sudo echo "0.0.0.0  home.example.local" | sudo tee -a /etc/hosts
+          sudo echo "127.0.0.1  homarr.example.local" | sudo tee -a /etc/hosts
           echo "$(</etc/hosts)"
 
       - name: Check IP
-        run: nslookup home.example.local
+        run: nslookup homarr.example.local
 
       - name: Ping
-        run: ping home.example.local -c 5
+        run: ping homarr.example.local -c 5
 
       - name: Curl homarr directly
         run: |
-          curl 0.0.0.0:7575 > curl_direct_result
+          curl 127.0.0.1:7575 > curl_direct_result
           cat curl_direct_result
 
       - name: Curl homarr proxy
         run: |
-          curl home.example.local > curl_proxy_result
+          curl homarr.example.local > curl_proxy_result
           cat curl_proxy_result
 
       - name: Check if different
