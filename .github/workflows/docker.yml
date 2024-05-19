@@ -74,7 +74,7 @@ jobs:
 
       - name: Start docker containers
         run: |
-          docker compose --file ./Homarr-Docker/docker-compose.yml --env-file ./tests/homarr.env run --wait --wait-timeout 120 --detach
+          docker compose --file ./Homarr-Docker/docker-compose.yml --env-file ./tests/homarr.env up --wait --wait-timeout 120 --detach
           docker compose up --wait --wait-timeout 120 --detach
 
       - name: Show containers
